@@ -280,6 +280,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 
         // Set up title label
         _titleLabel = [[UILabel alloc] init];
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.titleLabel setText:title];
         [self.titleLabel setTextColor:fontColor];
         [self.titleLabel setBackgroundColor:[UIColor clearColor]];
@@ -302,6 +303,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         if ([subtitle length])
         {
             _contentLabel = [[UILabel alloc] init];
+            self.contentLabel.textAlignment = NSTextAlignmentCenter;
             [self.contentLabel setText:subtitle];
 
             UIColor *contentTextColor = [UIColor colorWithHexString:[current valueForKey:@"contentTextColor"]];
@@ -457,6 +459,11 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
                                        0.0);
     [self.titleLabel sizeToFit];
 
+    
+    // for title text alignment
+    CGRect currFrame = self.titleLabel.frame;
+    self.titleLabel.frame = CGRectMake(currFrame.origin.x, currFrame.origin.y, screenWidth - TSMessageViewMinimumPadding - self.iconImageView.frame.origin.x - self.iconImageView.frame.size.width - TSMessageViewMinimumPadding - self.textSpaceLeft - self.textSpaceRight, currFrame.size.height);
+    
     if ([self.subtitle length])
     {
         self.contentLabel.frame = CGRectMake(self.textSpaceLeft,
@@ -465,6 +472,9 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
                                              0.0);
         [self.contentLabel sizeToFit];
 
+        currFrame = self.contentLabel.frame;
+        self.contentLabel.frame = CGRectMake(currFrame.origin.x, currFrame.origin.y, screenWidth - TSMessageViewMinimumPadding - self.iconImageView.frame.origin.x - self.iconImageView.frame.size.width - TSMessageViewMinimumPadding - self.textSpaceLeft - self.textSpaceRight, currFrame.size.height);
+        
         currentHeight = self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height;
     }
     else
